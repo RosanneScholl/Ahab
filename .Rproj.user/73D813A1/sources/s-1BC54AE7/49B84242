@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538527703321.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "49B84242",
+    "lastKnownWriteTime" : 3107594145019985926,
+    "last_content_update" : 1538527703321,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "F6EF4500",
+        "caption" : "SGahabdata",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=SGahabdata&cache_key=F6EF4500",
+        "displayedObservations" : 2350,
+        "environment" : "",
+        "object" : "SGahabdata",
+        "preview" : 0,
+        "totalObservations" : 2350,
+        "variables" : 99
+    },
+    "relative_order" : 4,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

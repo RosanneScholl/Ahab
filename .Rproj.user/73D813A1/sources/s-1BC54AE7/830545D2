@@ -1,0 +1,29 @@
+{
+    "collab_server" : "",
+    "contents" : "",
+    "created" : 1538527863976.000,
+    "dirty" : false,
+    "encoding" : "",
+    "folds" : "",
+    "hash" : "0",
+    "id" : "830545D2",
+    "lastKnownWriteTime" : 8589934598,
+    "last_content_update" : 1538527863976,
+    "path" : null,
+    "project_path" : null,
+    "properties" : {
+        "cacheKey" : "71294789",
+        "caption" : "ahab1",
+        "contentUrl" : "grid_resource/gridviewer.html?env=&obj=ahab1&cache_key=71294789",
+        "displayedObservations" : "56712",
+        "environment" : "",
+        "object" : "ahab1",
+        "preview" : "0",
+        "totalObservations" : "56712",
+        "variables" : "49"
+    },
+    "relative_order" : 5,
+    "source_on_save" : false,
+    "source_window" : "",
+    "type" : "r_dataframe"
+}

@@ -1,0 +1,23 @@
+"0","# preliminaries-----"
+"0","library(haven)"
+"0","library(""reshape2"")"
+"0","library(""ggplot2"")"
+"0","library(""dplyr"")"
+"2","
+Attaching package: ‘dplyr’
+
+"
+"2","The following objects are masked from ‘package:stats’:
+
+    filter, lag
+
+"
+"2","The following objects are masked from ‘package:base’:
+
+    intersect, setdiff, setequal, union
+
+"
+"0","setwd('/home/bcolloran/Desktop/The Strategy Team - Mozilla Files 2016-02-13/')"
+"2","Error in setwd(""/home/bcolloran/Desktop/The Strategy Team - Mozilla Files 2016-02-13/"") : 
+  cannot change working directory
+"

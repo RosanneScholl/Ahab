@@ -1,0 +1,1 @@
+{"frames":[{"character_number":0,"end_character_number":0,"end_line_number":0,"file":"","func":"setwd(\"/home/bcolloran/Desktop/The Strategy Team - Mozilla Files 2016-02-13/\")","line_number":0}],"message":"Error in setwd(\"/home/bcolloran/Desktop/The Strategy Team - Mozilla Files 2016-02-13/\") : \n  cannot change working directory\n"}
