@@ -6,18 +6,19 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 attach(export_17_)
-describe(subsession_hours_sum)
 library ("dplyr")
 library("ggplot2")
+library(Hmisc)
+```
+
+```{r explore}
+describe(subsession_hours_sum)
 qplot(subsession_hours_sum, geom="histogram", binwidth=1000)
 #extreme outliers for subsession_hours_sum should not be possible because this is pinged every 25 hours
 lnsubsession_hours_sum <- log(subsession_hours_sum)
 qplot(lnsubsession_hours_sum, geom="histogram", binwidth=.5)lnactive_hours_sum<-log(active_hours_sum)
 qplot(lnactive_hours_sum, geom="histogram", binwidth=.5)
 describe(active_hours_sum)
-library(Hmisc)
+#active_hours and subsession_hours_sum are moderately related as expected
 rcorr(active_hours_sum, subsession_hours_sum)
-
-
-
 ```
