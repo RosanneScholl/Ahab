@@ -11,21 +11,17 @@ library("ggplot2")
 library(Hmisc)
 ```
 
-<<<<<<< HEAD
 ```{r explore}
-=======
->>>>>>> c6d4072af52ecb918db4f04cbd3855cbb4ebe768
 describe(subsession_hours_sum)
 qplot(subsession_hours_sum, geom="histogram", binwidth=1000)
 #extreme outliers for subsession_hours_sum should not be possible because this is pinged every 25 hours
 lnsubsession_hours_sum <- log(subsession_hours_sum)
-qplot(lnsubsession_hours_sum, geom="histogram", binwidth=.5)lnactive_hours_sum<-log(active_hours_sum)
+qplot(lnsubsession_hours_sum, geom="histogram", binwidth=.5)
+lnactive_hours_sum<-log(active_hours_sum)
 qplot(lnactive_hours_sum, geom="histogram", binwidth=.5)
 describe(active_hours_sum)
 #active_hours and subsession_hours_sum are moderately related as expected
-<<<<<<< HEAD
 rcorr(active_hours_sum, subsession_hours_sum)
 ```
-=======
-rcorr(active_hours_sum, subsession_hours_sum)
->>>>>>> c6d4072af52ecb918db4f04cbd3855cbb4ebe768
+
+
