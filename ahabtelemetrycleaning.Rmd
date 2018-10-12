@@ -37,7 +37,7 @@ qplot(lnuri_count_sum, geom="histogram", binwidth=.5)
 
 ```{r nonresponse analysis}
 nonresponders <- select(filter(export_17_,hb_engaged == FALSE),c(client_id:num_joined_client_pings))
-#show responders vs nonresponders frequency distributions- how bad is our non-response?
+#show responders vs nonresponders frequency distributions- how bad is our non-response? need k-s tests
 ggplot(export_17_, aes(x=lnsubsession_hours_sum, fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
 ggplot(export_17_, aes(x=lnsearch_count_all,     fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
 ggplot(export_17_, aes(x=lnuri_count_sum,        fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
