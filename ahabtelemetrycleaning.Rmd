@@ -11,9 +11,9 @@ library(Hmisc)
 ```
 
 ```{r explore}
+#explore duration
 describe(subsession_hours_sum)
-qplot(subsession_hours_sum, geom="histogram", binwidth=1000)
-#extreme outliers for subsession_hours_sum should not be possible because this is pinged every 25 hours
+  #extreme outliers for subsession_hours_sum should not be possible because this is pinged every 25 hours
 lnsubsession_hours_sum <- log(subsession_hours_sum)
 qplot(lnsubsession_hours_sum, geom="histogram", binwidth=.5)
 lnactive_hours_sum<-log(active_hours_sum)
@@ -21,6 +21,24 @@ qplot(lnactive_hours_sum, geom="histogram", binwidth=.5)
 describe(active_hours_sum)
 #active_hours and subsession_hours_sum are moderately related as expected
 rcorr(active_hours_sum, subsession_hours_sum)
+
+#explore revenue
+describe(search_count_all)
+qplot(search_count_all, geom="histogram", binwidth=10)
+lnsearch_count_all <- log(search_count_all)
+qplot(lnsearch_count_all, geom="histogram", binwidth=1)
+
+#explore intensity
+describe(scalar_parent_browser_engagement_total_uri_count_sum)
+lnuri_count_sum <- log(scalar_parent_browser_engagement_total_uri_count_sum)
+qplot(lnuri_count_sum, geom="histogram", binwidth=.5)
+
 ```
 
-
+```{r nonresponse analysis}
+nonresponders <- select(filter(export_17_,hb_engaged == FALSE),c(client_id:num_joined_client_pings))
+#show responders vs nonresponders frequency distributions- how bad is our non-response?
+ggplot(export_17_, aes(x=lnsubsession_hours_sum, fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
+ggplot(export_17_, aes(x=lnsearch_count_all,     fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
+ggplot(export_17_, aes(x=lnuri_count_sum,        fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
+```
