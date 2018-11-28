@@ -1,2 +1,0 @@
-head (export_17_,4)
-lnsubsession_hours_sum <- log(subsession_hours_sum)

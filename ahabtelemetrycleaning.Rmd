@@ -12,15 +12,14 @@ library(Hmisc)
 
 ```{r explore}
 #explore duration
-describe(subsession_hours_sum)
+describe(export_17_$subsession_hours_sum)
   #extreme outliers for subsession_hours_sum should not be possible because this is pinged every 25 hours
-lnsubsession_hours_sum <- log(subsession_hours_sum)
+lnsubsession_hours_sum <- log(export_17_$subsession_hours_sum)
 qplot(lnsubsession_hours_sum, geom="histogram", binwidth=.5)
 lnactive_hours_sum<-log(active_hours_sum)
 qplot(lnactive_hours_sum, geom="histogram", binwidth=.5)
 describe(active_hours_sum)
 #active_hours and subsession_hours_sum are moderately related as expected
-rcorr(active_hours_sum, subsession_hours_sum)
 
 #explore revenue
 describe(search_count_all)
@@ -38,7 +37,67 @@ qplot(lnuri_count_sum, geom="histogram", binwidth=.5)
 ```{r nonresponse analysis}
 nonresponders <- select(filter(export_17_,hb_engaged == FALSE),c(client_id:num_joined_client_pings))
 #show responders vs nonresponders frequency distributions- how bad is our non-response? need k-s tests
-ggplot(export_17_, aes(x=lnsubsession_hours_sum, fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
-ggplot(export_17_, aes(x=lnsearch_count_all,     fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
-ggplot(export_17_, aes(x=lnuri_count_sum,        fill=hb_engaged)) + geom_histogram(binwidth=.5, alpha=.5, position="identity")
+ggplot(export_17_, aes(x=lnsubsession_hours_sum, fill=hb_engaged)) +
+       geom_histogram(binwidth=.5, alpha=.5, position="identity") +
+       labs(title="Frequency Distribution of Subsession Hours",
+                                    x ="Natural Log of 2 week's worth of daily subsession hours",
+                                    y = "Frequency") +
+      guides(fill=guide_legend(title=NULL)) +
+      scale_fill_manual(values = c("FALSE" = "orange",
+                                 "TRUE" = "blue"),
+                             name="hb.engaged.rename",
+                         breaks=c("FALSE", "TRUE"),
+                         labels=c("Non-responders", "Clicked through to survey")
+                  )
+ggplot(export_17_, aes(x=lnsearch_count_all, fill=hb_engaged)) +
+       geom_histogram(binwidth=.5, alpha=.5, position="identity") +
+       labs(title="Frequency Distribution of Search Counts",
+                                    x ="Natural Log of 2 week's worth of daily number of searches",
+                                    y = "Frequency") +
+      guides(fill=guide_legend(title=NULL)) +
+      scale_fill_manual(values = c("FALSE" = "orange",
+                                 "TRUE" = "blue"),
+                             name="hb.engaged.rename",
+                         breaks=c("FALSE", "TRUE"),
+                         labels=c("Non-responders", "Clicked through to survey")
+                  )
+ggplot(export_17_, aes(x=lnuri_count_sum, fill=hb_engaged)) +
+       geom_histogram(binwidth=.5, alpha=.5, position="identity") +
+       labs(title="Frequency Distribution of URI Count",
+                                    x ="Natural Log of 2 week's worth of daily URI count",
+                                    y = "Frequency") +
+      guides(fill=guide_legend(title=NULL)) +
+      scale_fill_manual(values = c("FALSE" = "orange",
+                                 "TRUE" = "blue"),
+                             name="hb.engaged.rename",
+                         breaks=c("FALSE", "TRUE"),
+                         labels=c("Non-responders", "Clicked through to survey")
+                  )
+  
 ```
+
+```{are non responders and responders from same distribution?}
+#working on this:
+ks.test(x, y, ...,
+        alternative = c("two.sided", "less", "greater"),
+        exact = NULL)
+```
+        
+```{visualizing selection bias related to days survey open}
+##replace ln duration0 with var for same survey day ln subsesion hours
+ggplot(export_17_, aes(x=hb_submission_date_s3, y=lnduration0, color=hb_engaged)) +
+   xlim(20180913,20180926)+
+    geom_point(shape=1, position=position_jitter(width=.2)) +
+   geom_smooth (method=lm)+
+   labs(title="Subsession length of survey invitees over time",
+   y ="Natural Log of subsession length on date of survey",
+   x = "Date of survey") +
+   guides(fill=guide_legend(title=NULL)) +
+   scale_color_manual(values = c("FALSE" = "orange", "TRUE" = "blue"),
+           name=(""),
+            breaks=c("FALSE", "TRUE"),
+           labels=c("Non-responders", "Clicked through to survey")
+ )
+
+             
+        

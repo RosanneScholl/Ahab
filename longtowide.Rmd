@@ -1,0 +1,7 @@
+---
+title: "long to wide"
+output: html_document
+---
+library ("reshape2")
+ahab1 <- dcast(export_17_, formula = client_id +hb_submission_date_s3 ~  day_lookback  , mean, value.var = "subsession_hours_sum")
+View (ahab1)
