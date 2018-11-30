@@ -29,16 +29,15 @@ print(reasonfit, sort=TRUE)
 
 elab_reason_percent <- elab_reason *100
 
-reasonplot <- qplot(elab_reason_percent, geom="histogram", binwidth=5,
-                       fill=I("#3366FF"))
-reasonplot<- reasonplot +labs(title="Frequency Distribution of Percent Elaborated Browser Choice Reasons",
-                                    x ="Percent of browser choice reasons that were elaborated rather than heuristic",
-                                    y = "Frequency")
-print(reasonplot)
+qplot(elab_reason_percent, geom="histogram", binwidth=5,fill=I("#3366FF"))+
+  labs( x ="% elaborated reasons",
+                                    y = "Frequency")+
+  theme(text = element_text(size=20))
+
 summary (elab_reason_percent)
 sd(elab_reason_percent, na.rm=TRUE)
-
-
+table(elab_reason_percent)
+length (elab_reason_percent)
 
 
 #exploring affect
@@ -49,18 +48,19 @@ print(affectfit, sort=TRUE)
 negaffectplot <- qplot(neg_affect, geom="histogram", binwidth=.2,
       fill=I("#3366FF"))
 
-negaffectplot<- negaffectplot +labs(title="Frequency Distribution of Mean Negative Affect",
-                                   x ="Mean Level across 5 Negative Affects",
-                                   y = "Frequency")
+negaffectplot<- negaffectplot +labs( x ="Mean Level across 5 Negative Affects",
+                                   y = "Frequency")+
+                       theme(text = element_text(size=20)
+                       )
 print (negaffectplot)
 
 pos_affect <- as.numeric(pos_affect)
 posaffectplot <- qplot(pos_affect, geom="histogram", binwidth=.2,
                        fill=I("#3366FF"))
 
-posaffectplot<- posaffectplot +labs(title="Frequency Distribution of Mean Positive Affect",
-                                    x ="Mean Level across 5 Positive Affects",
-                                    y = "Frequency")
+posaffectplot<- posaffectplot +labs(  x ="Mean Level across 5 Positive Affects",
+                                    y = "Frequency")+
+  theme(text = element_text(size=20))
 print(posaffectplot)
 summary (neg_affect)
 sd  (neg_affect, na.rm=TRUE)
@@ -73,8 +73,8 @@ sd  (pos_affect, na.rm=TRUE)
 #exploring tasks
 qplot(tasks, geom="histogram", binwidth=1,
       fill=I("#3366FF"),
-      main = "Frequency distribution for recent tasks",
-      ylab="Frequency", xlab= "Number of tasks" )
+      ylab="Frequency", xlab= "Number of tasks" )+
+  theme(text = element_text(size=20))
 summary (tasks)
 sd (tasks, na.rm=TRUE)
 
@@ -84,8 +84,8 @@ sd (tasks, na.rm=TRUE)
 #explorig shared values
 qplot(sharedvalues, geom="histogram", binwidth=.25,
 fill=I("#3366FF"),
-main = "Frequency distribution for shared values index",
-ylab="Frequency", xlab= "Mean of 5 shared values items 0 = Strongly Disagree with Mozilla Value" )
+ylab="Frequency", xlab= "Shared values with Mozilla" )+
+  theme(text = element_text(size=20))
 
 shares <-na.omit(AhabSGexportcalcs_5_[,c(123:127)])
 alpha (shares, title="inter-item reliability for shared values items")
