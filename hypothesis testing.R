@@ -329,3 +329,6 @@ ggplot(data=filtersearch, aes(y=sharedvalues, x=filtersearch$lnsearch))+
   )
 fit63 <- lm(sharedvalues ~ filtersearch$search, data = filtersearch)
 summary(fit63)
+
+
+

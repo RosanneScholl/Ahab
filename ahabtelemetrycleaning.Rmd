@@ -13,32 +13,25 @@ library(Hmisc)
 
 ```{r explore}
 #explore duration
-describe(export_17_$subsession_hours_sum)
+
+describe(wideMerged1_wideMerged$hours)
   #extreme outliers for subsession_hours_sum should not be possible because this is pinged every 25 hours
-lnsubsession_hours_sum <- log(export_17_$subsession_hours_sum)
-qplot(lnsubsession_hours_sum, geom="histogram", binwidth=.5)
-lnactive_hours_sum<-log(active_hours_sum)
-qplot(lnactive_hours_sum, geom="histogram", binwidth=.5)
-describe(active_hours_sum)
-#active_hours and subsession_hours_sum are moderately related as expected
+qplot(lnhours, geom="histogram", binwidth=.5)
 
 #explore revenue
-describe(search_count_all)
-qplot(search_count_all, geom="histogram", binwidth=10)
-lnsearch_count_all <- log(search_count_all)
-qplot(lnsearch_count_all, geom="histogram", binwidth=1)
+describe(wideMerged1_wideMerged$search)
+qplot(search, geom="histogram", binwidth=10)
+qplot(lnsearch, geom="histogram", binwidth=1)
 
 #explore intensity
-describe(scalar_parent_browser_engagement_total_uri_count_sum)
-lnuri_count_sum <- log(scalar_parent_browser_engagement_total_uri_count_sum)
-qplot(lnuri_count_sum, geom="histogram", binwidth=.5)
+describe(wideMerged1_wideMerged$uri)
+qplot(wideMerged1_wideMerged$lnuri, geom="histogram", binwidth=1)
 
 ```
 
-```{r nonresponse analysis}
-nonresponders <- select(filter(export_17_,hb_engaged == FALSE),c(client_id:num_joined_client_pings))
+
 #show responders vs nonresponders frequency distributions- how bad is our non-response? need k-s tests
-ggplot(export_17_, aes(x=lnsubsession_hours_sum, fill=hb_engaged)) +
+ggplot(wideMerged1_wideMerged, aes(x=lnhours, fill=hb_engaged) +
        geom_histogram(binwidth=.5, alpha=.5, position="identity") +
        labs(title="Frequency Distribution of Subsession Hours",
                                     x ="Natural Log of 2 week's worth of daily subsession hours",
@@ -49,8 +42,9 @@ ggplot(export_17_, aes(x=lnsubsession_hours_sum, fill=hb_engaged)) +
                              name="hb.engaged.rename",
                          breaks=c("FALSE", "TRUE"),
                          labels=c("Non-responders", "Clicked through to survey")
-                  )
-ggplot(export_17_, aes(x=lnsearch_count_all, fill=hb_engaged)) +
+       )                 
+                  
+ggplot(wideMerged1_wideMerged, aes(x=lnsearch, fill=hb_engaged)) +
        geom_histogram(binwidth=.5, alpha=.5, position="identity") +
        labs(title="Frequency Distribution of Search Counts",
                                     x ="Natural Log of 2 week's worth of daily number of searches",
@@ -62,7 +56,7 @@ ggplot(export_17_, aes(x=lnsearch_count_all, fill=hb_engaged)) +
                          breaks=c("FALSE", "TRUE"),
                          labels=c("Non-responders", "Clicked through to survey")
                   )
-ggplot(export_17_, aes(x=lnuri_count_sum, fill=hb_engaged)) +
+ggplot(wideMerged1_wideMerged, aes(x=lnuri, fill=hb_engaged)) +
        geom_histogram(binwidth=.5, alpha=.5, position="identity") +
        labs(title="Frequency Distribution of URI Count",
                                     x ="Natural Log of 2 week's worth of daily URI count",
@@ -75,7 +69,7 @@ ggplot(export_17_, aes(x=lnuri_count_sum, fill=hb_engaged)) +
                          labels=c("Non-responders", "Clicked through to survey")
                   )
   
-```
+
 
 ```{are non responders and responders from same distribution?}
 #working on this:
@@ -84,9 +78,9 @@ ks.test(x, y, ...,
         exact = NULL)
 ```
         
-```{visualizing selection bias related to days survey open}
+#visualizing selection bias related to days survey open
 ##replace ln duration0 with var for same survey day ln subsesion hours
-ggplot(export_17_, aes(x=hb_submission_date_s3, y=lnduration0, color=hb_engaged)) +
+ggplot(wideMerged1_wideMerged, aes(x=hb_submission_date_s3, y=lnhours, color=hb_engaged)) +
    xlim(20180913,20180926)+
     geom_point(shape=1, position=position_jitter(width=.2)) +
    geom_smooth (method=lm)+
@@ -97,7 +91,8 @@ ggplot(export_17_, aes(x=hb_submission_date_s3, y=lnduration0, color=hb_engaged)
    scale_color_manual(values = c("FALSE" = "orange", "TRUE" = "blue"),
            name=(""),
             breaks=c("FALSE", "TRUE"),
-           labels=c("Non-responders", "Clicked through to survey")
+           labels=c("Non-responders", "Clicked through to survey")+
+             theme(text = element_text(size=20))
  )
 
              
